@@ -1,4 +1,4 @@
-const WeekPlanning = require('./../models/weekPlanningModel');
+const WeekPlanning = require('../models/weekPlanningModel');
 
 exports.createWeek = async(req, res, next) => {
     try {
@@ -8,6 +8,7 @@ exports.createWeek = async(req, res, next) => {
         status: 'success',
         data: newWeek
     });
+
     } catch (err) {
         console.log(err);
         res.status(400).json({
@@ -15,5 +16,7 @@ exports.createWeek = async(req, res, next) => {
             data: err
         });
     };
+
+    next();
     
 };
