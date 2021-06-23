@@ -36,6 +36,11 @@ const userSchema = new mongoose.Schema({
         required: true
     },
 
+    email: {
+        type: String,
+        required: true
+    },
+
     daysOff: {
         type: [Number],
         required: true

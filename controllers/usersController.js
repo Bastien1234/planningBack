@@ -84,3 +84,15 @@ exports.generateNextWeek = async(req, res, next) => {
 
     next();
 }
+
+exports.generateCurrentMonth = async(req, res, next) => {
+    try {
+        const employees = await Users.find();
+        const date = new Date();
+        const currentMonth = date.getMonth()
+    }
+
+    catch (e) {
+        console.log(e)
+    }
+}
