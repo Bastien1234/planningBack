@@ -4,7 +4,7 @@ exports.getAllUsers = async(req, res, next) => {
     // This will return all users in a given team
     try {
         const userTeam = req.body.team;
-        const allUsers = await Users.find({"team": req.body.team});
+        const allUsers = await Users.find({"team": req.params.team});
 
         let arrayToReturn = [];
 
@@ -13,6 +13,7 @@ exports.getAllUsers = async(req, res, next) => {
                 myObj.firstName = el.firstName;
                 myObj.lastName = el.lastName;
                 myObj.email = el.email;
+                myObj.id = el.id;
                 myObj.shifts = el.shifts;
                 myObj.messages = el.messages;
                 arrayToReturn.push(myObj);
@@ -37,7 +38,7 @@ exports.getAllUsers = async(req, res, next) => {
 
 
 
-// // Replaced by signIn in authController
+// // Replaced by signUP in authController
 
 // exports.createUser = async(req, res, next) => {
 

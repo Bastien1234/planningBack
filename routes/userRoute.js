@@ -8,10 +8,14 @@ const { createUser, deleteUser, modifyUser, getAllUsers, generateCurrentMonth, d
 const { signup, login, protect, restrictTo, updatePassword } = AuthContoller; // Maybe we could use sendEmail for forgotten passwords in the futur
 
 router
+/*
     .route('/')
     //.post(createUser)
     .put(modifyUser)
     .post(getAllUsers)
+*/
+
+router.route('/getAllUsers/:team').get(getAllUsers)
 
 router.post('/signup', signup)
 router.post('/login', login)
