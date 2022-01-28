@@ -21,7 +21,7 @@ router.post('/signup', signup)
 router.post('/login', login)
 
 // router.post('/generate', generateNextWeek)
-router.post('/generateMonth', generateCurrentMonth)
+router.route('/generateMonth').post(protect, generateCurrentMonth)
 router.route('/deleteMonth').delete(deleteCurrentMonth)
 
 router.post('/requestChangeShift', requestShiftChange)
