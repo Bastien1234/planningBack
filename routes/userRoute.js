@@ -20,11 +20,15 @@ router.route('/getAllUsers/:team').get(getAllUsers)
 router.post('/signup', signup)
 router.post('/login', login)
 
+
+
 // router.post('/generate', generateNextWeek)
 router.route('/generateMonth').post(protect, generateCurrentMonth)
-router.route('/deleteMonth').delete(deleteCurrentMonth)
+router.route('/deleteMonth').delete(protect, deleteCurrentMonth)
 
 router.post('/requestChangeShift', requestShiftChange)
+
+router.route('/changePassword').put(updatePassword)
 
 router.post('/requestVacations', requestVacations)
 router.post('/sendMessage', sendMessage)

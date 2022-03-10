@@ -109,7 +109,7 @@ exports.protect = catchAsync(async (req, res, next) => {
 
 exports.restrictTo = (...roles) => {
   return (req, res, next) => {
-    // roles ['admin', 'lead-guide']. role='user'
+    // roles ['admin', 'user'...]. role='user'
     if (!roles.includes(req.user.role)) {
       return next(
         new AppError('You do not have permission to perform this action', 403)
@@ -147,12 +147,29 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
   createSendToken(user, 200, res);
 });
 
+async function comparePassword(candidate, current)
+{
+  try {
+    console.log("Try matching passwords !")
+    const result = await bcrypt.compare(candidate, current);
+    console.log("result : ", result)
+    return result;
+    
+  } catch (e) {
+    console.log("Error while comparing passwords :\n", e.message);
+  }
+  
+}
+
+
 exports.updatePassword = catchAsync(async (req, res, next) => {
   // 1) Get user from collection
-  const user = await User.findById(req.user.id).select('+password');
+  const user = await User.findOne({email: req.body.email}).select('+password');
+  console.log(user)
 
   // 2) Check if POSTed current password is correct
-  if (!(await user.correctPassword(req.body.passwordCurrent, user.password))) {
+  const arePasswordMatching = await comparePassword(req.body.passwordCurrent, user.password);
+  if (arePasswordMatching === false) {
     return next(new AppError('Your current password is wrong.', 401));
   }
 
@@ -160,8 +177,20 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
   user.password = req.body.password;
   user.passwordConfirm = req.body.passwordConfirm;
   await user.save();
-  // User.findByIdAndUpdate will NOT work as intended!
 
   // 4) Log user in, send JWT
-  createSendToken(user, 200, res);
+  const token = signToken(user._id);
+  res.status(200).json({
+    status: 'sucess',
+    message: 'password updated',
+    token
+  })
 });
+
+
+
+
+
+
+
+

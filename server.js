@@ -1,7 +1,15 @@
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const app = require('./app');
+/*
 const DB = "mongodb://localhost:27017/plannings";
+*/
+
+// Link config to our process.env variable (config.env)
+dotenv.config({path: './config.env'});
+
+const pwd = process.env.DATABASE_PASSWORD
+const DB = process.env.DATABASE.replace("<password>", pwd);
 
 // Config of process listeners
 
@@ -26,8 +34,7 @@ process.on('SIGTERM', () => {
   });
 });
 
-// Link config to our process.env variable (config.env)
-dotenv.config({path: './config.env'});
+
 
 mongoose.connect(DB, {
     useNewUrlParser: true,

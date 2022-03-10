@@ -240,6 +240,8 @@ exports.deleteCurrentMonth = async(req, res, next) => { // Ne delete pas toujour
 
 }
 
+// The following methods are not implemented yet on front end
+
 exports.sendMessage = async(req, res, next) => {
 
     try {
