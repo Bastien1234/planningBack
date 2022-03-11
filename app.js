@@ -22,23 +22,25 @@ const app = express();
 
 app.enable('trust proxy');
 
-app.use('/api', createProxyMiddleware({
-  target: "https://planningmanager.netlify.app/",
-  changeOrigin: true,
-  onProxyRes: function(proxyRes, req, res) {
-    proxyRes.headers['Access-Control-Allow-Origin'] = "*";
-  }
-}))
+// --- Testing without cors ---
 
-// middlewares
+// app.use('/api', createProxyMiddleware({
+//   target: "https://planningmanager.netlify.app/",
+//   changeOrigin: true,
+//   onProxyRes: function(proxyRes, req, res) {
+//     proxyRes.headers['Access-Control-Allow-Origin'] = "*";
+//   }
+// }))
 
-var corsOptions = {
-  origin: 'https://planningmanager.netlify.app/',
-  optionsSuccessStatus: 200 // For legacy browser support
-}
+// // middlewares
 
-app.use(cors(corsOptions));
-app.options('*', cors());
+// var corsOptions = {
+//   origin: 'https://planningmanager.netlify.app/',
+//   optionsSuccessStatus: 200 // For legacy browser support
+// }
+
+// app.use(cors(corsOptions));
+// app.options('*', cors());
 
 app.use(express.static(path.join(__dirname, './public')));
 

@@ -491,4 +491,6 @@ exports.testServer = async (res, res, next) => {
             data: "It has failed !!!"
         })
     }
+
+    next();
 }
