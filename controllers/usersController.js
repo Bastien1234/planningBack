@@ -476,3 +476,19 @@ exports.requestVacations = async(req, res, next) => {
 
     next();
 }
+
+exports.testServer = async (res, res, next) => {
+    try {
+        res.status(200).json({
+            status: "ok",
+            data: "works"
+        })
+    }
+
+    catch (e) {
+        res.status(400).json({
+            status: "failed",
+            data: "It has failed !!!"
+        })
+    }
+}

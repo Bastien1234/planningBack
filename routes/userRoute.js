@@ -4,16 +4,10 @@ const router = express.Router();
 const UsersController = require('./../controllers/usersController');
 const AuthContoller = require('./../controllers/authController');
 
-const { createUser, deleteUser, modifyUser, getAllUsers, generateCurrentMonth, deleteCurrentMonth, sendMessage, deleteMessage, requestVacations, requestShiftChange } = UsersController;
+const { createUser, deleteUser, modifyUser, getAllUsers, generateCurrentMonth, deleteCurrentMonth, sendMessage, deleteMessage, requestVacations, requestShiftChange, testServer } = UsersController;
 const { signup, login, protect, restrictTo, updatePassword } = AuthContoller; // Maybe we could use sendEmail for forgotten passwords in the futur
 
-router
-/*
-    .route('/')
-    //.post(createUser)
-    .put(modifyUser)
-    .post(getAllUsers)
-*/
+router.get('testServer', testServer)
 
 router.route('/getAllUsers/:team').get(getAllUsers)
 
