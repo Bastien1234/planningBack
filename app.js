@@ -22,7 +22,12 @@ app.enable('trust proxy');
 
 // middlewares
 
-app.use(cors());
+var corsOptions = {
+  origin: 'https://planningmanager.netlify.app/',
+  optionsSuccessStatus: 200 // For legacy browser support
+}
+
+app.use(cors(corsOptions));
 app.options('*', cors());
 
 app.use(express.static(path.join(__dirname, './public')));
