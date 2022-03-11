@@ -10,6 +10,8 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const compression = require('compression');
 const cors = require('cors');
+const { createProxyMiddleware } = require("http-proxy-middleware");
+
 const { message } = require('statuses');
 const AppError = require('./AppError/appError');
 
@@ -19,6 +21,14 @@ const userRouter = require('./routes/userRoute');
 const app = express();
 
 app.enable('trust proxy');
+
+app.use('/api', createProxyMiddleware({
+  target: "https://planningmanager.netlify.app/",
+  changeOrigin: true,
+  onProxyRes: function(proxyRes, req, res) {
+    proxyRes.headers['Access-Control-Allow-Origin'] = "*";
+  }
+}))
 
 // middlewares
 
