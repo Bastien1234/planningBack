@@ -20,27 +20,10 @@ const userRouter = require('./routes/userRoute');
 
 const app = express();
 
-app.enable('trust proxy');
+// app.enable('trust proxy');
 
-// --- Testing without cors ---
-
-// app.use('/api', createProxyMiddleware({
-//   target: "https://planningmanager.netlify.app/",
-//   changeOrigin: true,
-//   onProxyRes: function(proxyRes, req, res) {
-//     proxyRes.headers['Access-Control-Allow-Origin'] = "*";
-//   }
-// }))
-
-// // middlewares
-
-// var corsOptions = {
-//   origin: 'https://planningmanager.netlify.app/',
-//   optionsSuccessStatus: 200 // For legacy browser support
-// }
-
-// app.use(cors(corsOptions));
-// app.options('*', cors());
+app.use(cors());
+app.options('*', cors());
 
 app.use(express.static(path.join(__dirname, './public')));
 
@@ -68,20 +51,6 @@ app.use(mongoSanitize());
 
 // Data sanitization against XSS
 app.use(xss());
-
-// Prevent parameter pollution
-// app.use(
-//   hpp({
-//     whitelist: [
-//       'duration',
-//       'ratingsQuantity',
-//       'ratingsAverage',
-//       'maxGroupSize',
-//       'difficulty',
-//       'price'
-//     ]
-//   })
-// );
 
 app.use(compression());
 
