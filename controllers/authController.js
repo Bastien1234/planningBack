@@ -17,6 +17,8 @@ exports.signup = catchAsync(async (req, res, next) => {
 
     const token = signToken(newUser._id);
 
+    res.setHeader('Access-Control-Allow-Origin', '*');
+
     res.status(201).json({
         status: 'success',
         token,
