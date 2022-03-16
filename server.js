@@ -11,6 +11,8 @@ dotenv.config({path: './config.env'});
 const pwd = process.env.DATABASE_PASSWORD
 const DB = process.env.DATABASE.replace("<password>", pwd);
 
+console.log("db : \n", DB);
+
 // Config of process listeners
 
 process.on('uncaughtException', err => {
