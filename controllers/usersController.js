@@ -1,10 +1,20 @@
 const Users = require('./../models/userModel');
 
+const log = (args) => {
+    console.log(args);
+}
+
 exports.getAllUsers = async(req, res, next) => {
     // This will return all users in a given team
+
+    log("entering get all users");
+
     try {
+        log("entering try block");
         const userTeam = req.body.team;
         const allUsers = await Users.find({"team": req.params.team});
+
+        log("after promise returned");
 
         let arrayToReturn = [];
 
@@ -19,6 +29,8 @@ exports.getAllUsers = async(req, res, next) => {
                 arrayToReturn.push(myObj);
         })
 
+        log("just before response");
+
         res.status(200).json({
             status: 'success',
             results: allUsers.length,
@@ -26,6 +38,7 @@ exports.getAllUsers = async(req, res, next) => {
             data: arrayToReturn
         })
     } catch (e) {
+        log("entering catch block");
         console.log(e)
         res.status(400).json({
             status: 'failed',
