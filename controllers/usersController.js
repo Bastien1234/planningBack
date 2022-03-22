@@ -145,13 +145,12 @@ exports.deleteUser = async(req, res, next) => {
 exports.generateCurrentMonth = async(req, res, next) => {
     try {
         const employees = await Users.find({"team": req.body.team});
-        console.log(employees)
         const month = req.body.month // en JS on doit faire -1, les mois commencent à 0
         const year = req.body.year;
         const daysInMonth = new Date(year, month+1, 0).getDate();
 
         for (let i=1; i<=daysInMonth; i++) {
-            let startingDate = new Date(year, month, i+1)
+            let startingDate = new Date(year, month, i) // remettre i+1 si ça résoud pas le soucis
             employees.forEach(async (employee) => {
                 const newIndexDay = startingDate.toISOString().split('T')[0];
                 const newShift = employee.daysOff.includes(startingDate.getUTCDay()) ? 'off' : 'na';
