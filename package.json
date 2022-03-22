@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "node server.js"
   },
   "name": "planningmanagerback",
   "version": "1.0.0",
