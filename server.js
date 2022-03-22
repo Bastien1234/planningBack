@@ -15,8 +15,6 @@ dotenv.config({path: './config.env'});
 const pwd = process.env.DATABASE_PASSWORD
 const DB = process.env.DATABASE.replace("<password>", pwd);
 
-console.log("db : \n", DB);
-
 // Config of process listeners
 
 process.on('uncaughtException', err => {
@@ -54,6 +52,10 @@ const port = process.env.PORT || 8000;
 const server = app.listen(port, () => {
     console.log(`App running on port ${port}`);
 });
+
+server.on("clientError", (err, socket) => {
+  console.log("Client Error was trigged !\nError message : \n", err.message);
+})
 
 
 
